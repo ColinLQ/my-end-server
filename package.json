@@ -1,0 +1,27 @@
+{
+  "name": "my-end-server",
+  "version": "1.0.0",
+  "description": "后台",
+  "main": "index.js",
+  "scripts": {
+    "create": "node src/confing/database.js",
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^8.3.0",
+    "koa": "^2.6.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.16.0",
+    "npm": "^6.4.1",
+    "superagent": "^4.0.0-beta.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-beansmile": "^1.1.0",
+    "nodemon": "^1.18.5"
+  }
+}
