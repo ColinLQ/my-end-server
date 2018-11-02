@@ -1,4 +1,4 @@
-const { sign } = require('jsonwebtoken');
+const { sign, verify } = require('jsonwebtoken');
 const { privateKey } = require('../confing/mini-app')
 
 async function createToken(id) {
@@ -17,7 +17,18 @@ async function createToken(id) {
 }
 
 function decodeToken(token) {
-  return token;
+  const options = { ignoreExpiration: false };
+  return new Promise(resolve => {
+    verify(token, privateKey, options, (err, decoded) => {
+      if (err) {
+        throw {
+          status: 401,
+          message: err.message
+        }
+      }
+      resolve(decoded.id)
+    })
+  })
 }
 
 module.exports = {

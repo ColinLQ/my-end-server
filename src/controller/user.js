@@ -1,8 +1,9 @@
 const request = require('superagent');
-const { handleError, handleSuccess } = require('../utils/handle-response');
 const userModel = require('../model/user');
 
-function get(ctx) {
+async function get(ctx) {
+  const user = await userModel.getUser(ctx.userId);
+  return user;
 }
 
 function update(ctx) {
@@ -23,11 +24,11 @@ async function login(ctx) {
       });
     const { errcode, errmsg, openid } = JSON.parse(res.text);
     if (errcode) {
-      return handleError(ctx, errmsg, errcode)
+      throw { status: errcode, errmsg }
     }
 
     const { token } = await userModel.login(openid);
-    handleSuccess(ctx, { token });
+    return { token };
 
   } catch (err) {
     if (err.status === 40029) {
@@ -35,8 +36,7 @@ async function login(ctx) {
       err.message = err.message.split(',')[0]
     }
 
-    ctx.status = err.status || 500;
-    ctx.body = err;
+    throw err;
   }
 }
 

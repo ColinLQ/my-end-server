@@ -3,7 +3,6 @@ const { createToken } = require('../utils/token');
 
 const createSql = 'INSERT INTO users set avatar = ?, nick_name = ?, gender = ?, mobile = ?';
 
-const getUserSql = 'SELECT * FROM users WHERE openid = ?';
 
 function update(values) {
   pool.query(createSql, values)
@@ -16,6 +15,8 @@ async function createUser(openid) {
 }
 
 async function login(openid) {
+  const getUserSql = 'SELECT * FROM users WHERE openid = ?';
+
   const data = await pool.query(getUserSql, openid)
   let userId;
   if (!data.length) {
@@ -27,7 +28,22 @@ async function login(openid) {
   return { token };
 }
 
+async function getUser(id) {
+  const sql = 'SELECT * FROM users WHERE id = ?';
+  const data = await pool.query(sql, id)
+  const user = data[0]
+  if (!user) {
+    throw {
+      status: 404,
+      message: '资源不存在！'
+    }
+  }
+  delete user.openid;
+  return user;
+}
+
 module.exports = {
   update,
   login,
+  getUser,
 }
