@@ -10,7 +10,7 @@ const createDatabaseSql = 'CREATE DATABASE IF NOT EXISTS forum DEFAULT CHARSET u
 
 const useDatabase = 'USE forum';
 
-const createPlateTablePlateSql = `CREATE TABLE IF NOT EXISTS plate (
+const createPlateTablePlatesSql = `CREATE TABLE IF NOT EXISTS plates (
   id INT UNSIGNED AUTO_INCREMENT,
   author VARCHAR(40) NOT NULL,
   title VARCHAR(40) NOT NULL,
@@ -54,6 +54,6 @@ connection.connect(function(err) {
 
   query(createDatabaseSql, 'create database success！')
     .then(() => query(useDatabase))
-    .then(() => query(createPlateTablePlateSql))
+    .then(() => query(createPlateTablePlatesSql))
     .then(() => query(createUsersTableSql))
 });

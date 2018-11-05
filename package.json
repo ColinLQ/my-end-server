@@ -4,7 +4,7 @@
   "description": "后台",
   "main": "index.js",
   "scripts": {
-    "create": "node src/confing/database.js",
+    "create": "node src/config/database.js",
     "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

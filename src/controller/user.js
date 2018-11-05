@@ -6,12 +6,17 @@ async function get(ctx) {
   return user;
 }
 
-function update(ctx) {
+async function update(ctx) {
+  const { avatar, nick_name, gender, mobile } = ctx.request.body;
+  const values = [avatar, nick_name, gender, mobile];
+  console.log(values);
+  const data = await userModel.update(values, ctx.userId)
+  return data
 }
 
 async function login(ctx) {
   const { code } = ctx.request.body;
-  const { appid, secret } = require('../confing/mini-app');
+  const { appid, secret } = require('../config/mini-app');
   try {
     const res = await request
       .get('https://api.weixin.qq.com/sns/jscode2session')

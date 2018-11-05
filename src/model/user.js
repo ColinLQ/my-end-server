@@ -1,11 +1,10 @@
 const pool = require('../lib');
 const { createToken } = require('../utils/token');
 
-const createSql = 'INSERT INTO users set avatar = ?, nick_name = ?, gender = ?, mobile = ?';
-
-
-function update(values) {
-  pool.query(createSql, values)
+async function update(values, id) {
+  const sql = `UPDATE users SET avatar = ?, nick_name = ?, gender = ?, mobile = ? WHERE id = ${id}`;
+  const user = await pool.query(sql, values)
+  return user;
 }
 
 async function createUser(openid) {

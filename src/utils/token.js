@@ -1,5 +1,5 @@
 const { sign, verify } = require('jsonwebtoken');
-const { privateKey } = require('../confing/mini-app')
+const { privateKey } = require('../config/mini-app')
 
 async function createToken(id) {
   return new Promise(resolve => {
